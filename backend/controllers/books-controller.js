@@ -34,7 +34,7 @@ module.exports.getBookById = async (req, res, next) => {
 
 //Add new books
 module.exports.addBook = async (req, res, next) => {
-    const { name, author, description, price, available } = req.body;
+    const { name, author, description, price, available, image } = req.body;
     let book;
     try {
         book = new Book({
@@ -42,7 +42,8 @@ module.exports.addBook = async (req, res, next) => {
             author,
             description,
             price,
-            available
+            available,
+            image,
         });
         //save date to mongoose
         await book.save();
@@ -61,7 +62,7 @@ module.exports.addBook = async (req, res, next) => {
 //update the books
 module.exports.updateBook = async (req, res, next) => {
     const id = req.params.id;
-    const { name, author, description, price, available } = req.body;
+    const { name, author, description, price, available, image } = req.body;
     let book;
     try {
         book = await Book.findByIdAndUpdate(id, {
@@ -69,7 +70,8 @@ module.exports.updateBook = async (req, res, next) => {
             author,
             description,
             price,
-            available
+            available,
+            image,
         })
         book = await book.save();
     } catch (error) {
